@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Recommendation{% endblock %}
+{% block body %}
+{% if not rec %}
+<p>Recommendation not found.</p>
+{% else %}
+<h1>{{ rec.recommendation_id }}</h1>
+<p>{{ rec.problem }}</p>
+<div class="card">
+  <div class="muted">Status {{ rec.status }} · confidence {{ rec.confidence }} · risk {{ rec.risk }}</div>
+  <pre>{{ rec.proposed_action }}</pre>
+  <h3>Why this</h3>
+  <p>{{ rec.why_this }}</p>
+  <h3>Alternatives</h3>
+  <pre>{{ rec.alternatives }}</pre>
+  <h3>Evidence</h3>
+  <pre>{{ rec.evidence }}</pre>
+</div>
+{% endif %}
+{% endblock %}

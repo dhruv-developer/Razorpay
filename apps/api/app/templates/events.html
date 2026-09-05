@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}Event ledger{% endblock %}
+{% block body %}
+<h1>Event ledger</h1>
+<table>
+  <tr><th>Time</th><th>Type</th><th>Entity</th><th>Amount</th></tr>
+  {% for ev in events %}
+  <tr>
+    <td>{{ ev.timestamp }}</td>
+    <td>{{ ev.event_type }}</td>
+    <td>{{ ev.entity_id }}</td>
+    <td>{{ (ev.payload.amount or ev.payload.delta_paise or 0)|inr }}</td>
+  </tr>
+  {% endfor %}
+</table>
+{% endblock %}

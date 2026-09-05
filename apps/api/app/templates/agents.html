@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}Agent runs{% endblock %}
+{% block body %}
+<h1>Agent runs</h1>
+<table>
+  <tr><th>Time</th><th>Agent</th><th>Proposal</th><th>Confidence</th></tr>
+  {% for run in runs %}
+  <tr>
+    <td>{{ run.created_at }}</td>
+    <td>{{ run.agent_id }}</td>
+    <td>{{ run.proposal.proposal.type if run.proposal else '' }} {{ run.proposal.proposal.amount if run.proposal else '' }}</td>
+    <td>{{ run.proposal.confidence if run.proposal else '' }}</td>
+  </tr>
+  {% endfor %}
+</table>
+{% endblock %}

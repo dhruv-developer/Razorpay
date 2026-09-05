@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}Ops overview{% endblock %}
+{% block body %}
+<h1>Merchant state</h1>
+<p class="muted">Computed from the world model. Label: <span class="pill">{{ state.label }}</span></p>
+<div class="grid">
+  <div class="card"><div class="muted">Cash</div><h2>{{ state.cash_paise|inr }}</h2></div>
+  <div class="card"><div class="muted">Revenue 24h</div><h2>{{ state.revenue_24h_paise|inr }}</h2></div>
+  <div class="card"><div class="muted">Projected cash 24h</div><h2>{{ state.projected_cash_24h_paise|inr }}</h2></div>
+  <div class="card"><div class="muted">Reserve breach</div><h2>{{ '%.0f'|format((state.reserve_breach_probability or 0)*100) }}%</h2></div>
+</div>
+<h2>Recommendations</h2>
+<table>
+  <tr><th>ID</th><th>Problem</th><th>Status</th><th>Confidence</th></tr>
+  {% for rec in recommendations %}
+  <tr>
+    <td><a href="/ops/recommendations/{{ rec.recommendation_id }}">{{ rec.recommendation_id }}</a></td>
+    <td>{{ rec.problem }}</td>
+    <td>{{ rec.status }}</td>
+    <td>{{ rec.confidence }}</td>
+  </tr>
+  {% endfor %}
+</table>
+<h2>Action ledger</h2>
+<table>
+  <tr><th>Action</th><th>Type</th><th>Amount</th><th>Status</th></tr>
+  {% for act in actions %}
+  <tr>
+    <td>{{ act.action_id }}</td>
+    <td>{{ act.action_type }}</td>
+    <td>{{ act.amount_paise|inr }}</td>
+    <td>{{ act.status }}</td>
+  </tr>
+  {% endfor %}
+</table>
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}Actions{% endblock %}
+{% block body %}
+<h1>Action ledger</h1>
+<table>
+  <tr><th>ID</th><th>Type</th><th>Agent</th><th>Amount</th><th>Status</th><th>Policy</th></tr>
+  {% for act in actions %}
+  <tr>
+    <td>{{ act.action_id }}</td>
+    <td>{{ act.action_type }}</td>
+    <td>{{ act.agent_id }}</td>
+    <td>{{ act.amount_paise|inr }}</td>
+    <td>{{ act.status }}</td>
+    <td>{{ act.policy_result.requires_approval }}</td>
+  </tr>
+  {% endfor %}
+</table>
+{% endblock %}
